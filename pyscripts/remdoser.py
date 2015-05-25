@@ -4,15 +4,10 @@ import pycurl
 import os
 import time
 
-
-
-urlon='http://localhost/arduino/m1on'
-urloff='http://localhost/arduino/m1off'
-
-sys.path.insert(0, '/usr/lib/python2.7/bridge/')
-
-urlon='http://localhost/arduino/m1on'
-urloff='http://localhost/arduino/m1off'
+urlon='http://192.168.1.111/arduino/m1on'
+urloff='http://192.168.1.111/arduino/m1off'
+urlon='http://192.168.1.111/arduino/m1on'
+urloff='http://192.168.1.111/arduino/m1off'
 
 from bridgeclient import BridgeClient as bridgeclient
 
@@ -29,8 +24,6 @@ if(phvalue >= 7):
 	curl.setopt(pycurl.URL, urloff)
 	curl.perform()
 	curl.close()
-        
-	
 
 if(phvalue <= 6):
 	print phvalue
