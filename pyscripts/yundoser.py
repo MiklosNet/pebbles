@@ -4,8 +4,6 @@ import pycurl
 import os
 import time
 
-
-
 urlon='http://localhost/arduino/m1on'
 urloff='http://localhost/arduino/m1off'
 
@@ -30,8 +28,6 @@ if(phvalue >= 7):
 	curl.perform()
 	curl.close()
         
-	
-
 if(phvalue <= 6):
 	print phvalue
 	print "is low"
