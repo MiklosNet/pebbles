@@ -3,33 +3,53 @@ import urllib
 import pycurl
 import os
 import time
-
-urlon='http://localhost/arduino/m1on'
-urloff='http://localhost/arduino/m1off'
-
 sys.path.insert(0, '/usr/lib/python2.7/bridge/')
-
-urlon='http://localhost/arduino/m1on'
-urloff='http://localhost/arduino/m1off'
-
 from bridgeclient import BridgeClient as bridgeclient
 
-value = bridgeclient()
-phvalue = value.get('PH')
+urlon='http://localhost/arduino/m1on'
+urloff='http://localhost/arduino/m1off'
+urlph='http://localhost/arduino/getph'
 
-if(phvalue >= 7):
+def checkph():
+	curl = pycurl.Curl()
+	curl.setopt(pycurl.URL, urlph)
+	curl.perform()
+	curl.close()
+	value = bridgeclient()
+	phvalue = value.get('PH')
+	if(phvalue > "7"):
+	   duration = offsetph(phvalue)
+	   adjustph(duration)
+	print("ph")
 	print phvalue
-	print " is high, turning on phpump low for 15 seconds"
-        curl = pycurl.Curl()
+	return phvalue;
+
+def adjustph(duration):
+	curl = pycurl.Curl()
 	curl.setopt(pycurl.URL, urlon)
-	curl.perform()	
-	time.sleep(15)
+	curl.perform()
+        print("adjusting ph")	
+	time.sleep(duration)
 	curl.setopt(pycurl.URL, urloff)
 	curl.perform()
 	curl.close()
+
+def offsetph(ph):
+	phtop = 6.8
+	if(ph > phtop):
+	   magicnum = ph - phtop
+	   if(magicnum >= 3):
+	    pumpduration = 35
+           if(magicnum <= 2):
+	    pumpduration = 15   
+        return pump_duration;
+	    
+results = checkph()
+
+
         
-if(phvalue <= 6):
-	print phvalue
-	print "is low"
+	
+
+
 
 
