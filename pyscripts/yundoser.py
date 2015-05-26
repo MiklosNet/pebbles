@@ -1,8 +1,13 @@
 import sys
-import urllib
 import pycurl
-import os
 import time
+import MySQLdb
+import subprocess
+import re
+import sys
+import time
+import datetime
+
 sys.path.insert(0, '/usr/lib/python2.7/bridge/')
 from bridgeclient import BridgeClient as bridgeclient
 
@@ -43,13 +48,22 @@ def offsetph(ph):
            if(magicnum <= 2):
 	    pumpduration = 15   
         return pump_duration;
-	    
+
+def mysqlmiklo():
+    conn = MySQLdb.connect("localhost","root","tash415","miklosnet")
+    while(True):
+    date = time.strftime("%d/%m/%Y")
+    clock = time.strftime("%H:%M")
+    c = conn.cursor()
+    c.execute("INSERT INTO data_th (date, clock, temp, hum) VALUES (%s, %s, %s, %s)",
+    (date, clock, temp, humidity))
+
 results = checkph()
 
 
         
 	
 
-
+#!/usr/bin/python
 
 
