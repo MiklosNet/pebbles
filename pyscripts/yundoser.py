@@ -6,7 +6,7 @@ import time
 sys.path.insert(0, '/usr/lib/python2.7/bridge/')
 from bridgeclient import BridgeClient as bridgeclient
 
-urlon='http://localhost/arduino/m1on'
+urlon='/arduino/m1on'
 urloff='http://localhost/arduino/m1off'
 urlph='http://localhost/arduino/getph'
 
