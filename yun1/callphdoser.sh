@@ -1,1 +1,1 @@
-python /opt/scripts/yundoser.py
+python /opt/pebbles/pyscripts/yundoser.py
