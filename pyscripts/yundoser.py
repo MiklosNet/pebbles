@@ -3,6 +3,9 @@ import urllib
 import pycurl
 import os
 import time
+import MySQLdb as mdb
+import datetime
+
 sys.path.insert(0, '/usr/lib/python2.7/bridge/')
 from bridgeclient import BridgeClient as bridgeclient
 
@@ -11,17 +14,8 @@ urloff='http://localhost/arduino/m1off'
 urlph='http://localhost/arduino/getph'
 
 def checkph():
-	curl = pycurl.Curl()
-	curl.setopt(pycurl.URL, urlph)
-	curl.perform()
-	curl.close()
 	value = bridgeclient()
 	phvalue = value.get('PH')
-	if(phvalue > "7"):
-	   duration = offsetph(phvalue)
-	   adjustph(duration)
-	print("ph")
-	print phvalue
 	return phvalue;
 
 def adjustph(duration):
@@ -44,7 +38,25 @@ def offsetph(ph):
 	    pumpduration = 15   
         return pump_duration;
 	    
-results = checkph()
+con = mdb.connect('192.168.1.141', 'webuser', 'usepassword', 'miklosnet');
+
+with con:
+
+    cur = con.cursor()
+
+    phresult = checkph()
+    setime = datetime.datetime.now()
+    idis = 1
+    
+    loggit = "INSERT INTO reading (val,date,sid) VALUES (%s, %s, %s)"
+
+    cur.execute(loggit, (phresult,setime,idis))
+    con.commit()
+
+    print phresult
+    print setime
+    print idis
+    
 
 
         
