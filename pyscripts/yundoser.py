@@ -37,9 +37,8 @@ def offsetph(ph):
            if(magicnum <= 2):
 	    pumpduration = 15   
         return pump_duration;
-	    
-con = mdb.connect('192.168.1.141', 'webuser', 'usepassword', 'miklosnet');
 
+con = mdb.connect('192.168.1.141', 'webuser', 'usepassword', 'miklosnet');
 with con:
 
     cur = con.cursor()
@@ -56,7 +55,7 @@ with con:
     print phresult
     print setime
     print idis
-    
+
 
 
         

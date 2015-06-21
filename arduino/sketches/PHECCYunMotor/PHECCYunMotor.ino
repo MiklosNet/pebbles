@@ -1,5 +1,4 @@
-//5/24 - update - added motor driver - saving all files and libraries to dropbox account miklosnet folder
-
+// Modified 6 21 2016
 #include <Bridge.h>
 #include <YunServer.h>
 #include <YunClient.h>
@@ -137,9 +136,10 @@ void getphCommand(YunClient client) {
 
 float phCommand(){
 static float pHValue,voltage;
-float pHSensor = analogRead(PH_PIN);
+float pHSensor = analogRead(A3);
 voltage = pHSensor *5.0/1024;
-pHValue = 3.5*voltage+PH_OFFSET;
+//pHValue = 3.5*voltage+PH_OFFSET; // use offset if needed
+pHValue = 3.5*voltage;
 String key = "PH";
 Bridge.put(key, String(pHValue));
 return pHValue;
@@ -153,9 +153,4 @@ String key = "ECC";
 Bridge.put(key, String(SensorReading));
 return SensorReading;
 }
-
-
-
-
-
 
